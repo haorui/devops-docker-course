@@ -1,0 +1,14 @@
+# Pin specific version for stability
+# Use debain fro easier build utilities
+FROM golang:1.21-bullseye AS build
+
+WORKDIR /app
+
+COPY . .
+
+RUN go mod download
+
+# Compile application during build rather that at runtime
+RUN go build -o api-golang
+
+CMD [ "go", "run", "./main.go" ]

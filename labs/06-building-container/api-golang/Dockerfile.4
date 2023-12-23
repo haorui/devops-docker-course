@@ -1,0 +1,30 @@
+# Pin specific version for stability
+# Use separate stage for building image
+# Use debain fro easier build utilities
+FROM golang:1.21-bullseye AS build
+
+WORKDIR /app
+
+# Copy only files required to install dependencies (better layer caching)
+COPY go.mod go.sum ./
+
+RUN go mod download
+
+COPY . .
+
+# Compile application during build rather that at runtime
+# Add flags to statically link binary
+RUN go build \
+  -ldflags="-linkmode external -extldflags -static" \
+  -tags netog \
+  -o api-golang
+
+# Use separate stage for depolyable image
+FROM scratch
+
+WORKDIR /
+
+# Copy the binary from the build stage
+COPY --from=build /app/api-golang api-golang
+
+CMD [ "/api-golang" ]
