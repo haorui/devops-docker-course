@@ -1,0 +1,8 @@
+# Pin spectific verison
+FROM node:18.9-bullseye
+
+COPY . .
+
+RUN npm install
+
+CMD [ "npm", "run", "dev" ]
