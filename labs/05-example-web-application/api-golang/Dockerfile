@@ -1,6 +1,6 @@
 FROM golang:1.21-bullseye as build
 
-# timeout problem
+# cn timeout problem
 ENV GO111MODULE=on
 ENV GOPROXY=https://goproxy.cn,direct
 

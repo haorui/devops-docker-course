@@ -3,6 +3,10 @@
 # Use debain fro easier build utilities
 FROM golang:1.21-bullseye AS build
 
+# cn timeout problem
+ENV GO111MODULE=on
+ENV GOPROXY=https://goproxy.cn,direct
+
 # Add non root user
 RUN useradd -u 1001 nonroot
 
