@@ -27,7 +27,8 @@ services:
     restart: unless-stopped
   api-node:
     labels:
-      shipyard.route: '/api/node'
+      shipyard.route: '/api/node/'
+      shipyard.route.rewrite: true
     image: api-node
     build: 
       context: ../05-example-web-application/api-node/
@@ -45,7 +46,8 @@ services:
     restart: unless-stopped
   api-golang:
     labels:
-      shipyard.route: '/api/golang'
+      shipyard.route: '/api/golang/'
+      shipyard.route.rewrite: true
     image: api-golang
     build: 
       context: ../05-example-web-application/api-golang/
